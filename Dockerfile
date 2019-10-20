@@ -1,4 +1,5 @@
 FROM jenkins/jenkins:lts
+ARG GID
 MAINTAINER 4oh4
 
 # Derived from https://github.com/getintodevops/jenkins-withdocker (miiro@getintodevops.com)
@@ -19,6 +20,7 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce && \
+   groupmod -g $GID docker && \
    usermod -aG docker jenkins
 
 # drop back to the regular jenkins user - good practice
