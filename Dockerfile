@@ -21,11 +21,12 @@ RUN apt-get update && \
       $(lsb_release -cs) \
       stable" && \
    apt-get update && \
-   apt-get -y install docker-ce && \
-   usermod -aG docker jenkins && \
-   usermod -u $JENKUID jenkins && \
+   apt-get -y install docker-ce
+   
+RUN usermod -u $JENKUID jenkins && \
    groupmod -g $DOCKGID docker && \
-   groupmod -g $JENKGID jenkins
+   groupmod -g $JENKGID jenkins && \
+   usermod -aG docker jenkins
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
