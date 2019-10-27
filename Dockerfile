@@ -22,9 +22,9 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce && \
-   groupmod -g $GID docker && \
    usermod -aG docker jenkins && \
    usermod -u $JENKUID jenkins && \
+   groupmod -g $DOCKGID docker && \
    groupmod -g $JENKGID jenkins
 
 # drop back to the regular jenkins user - good practice
