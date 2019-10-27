@@ -1,4 +1,5 @@
 FROM jenkins/jenkins:lts
+ARG UID
 ARG GID
 MAINTAINER 4oh4
 
@@ -20,6 +21,7 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce && \
+   usermod -u $UID jenkins
    groupmod -g $GID docker && \
    usermod -aG docker jenkins
 
