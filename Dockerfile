@@ -7,6 +7,8 @@ MAINTAINER 4oh4
 
 USER root
 
+RUN usermod -u $UID jenkins
+
 # Install the latest Docker CE binaries and add user `jenkins` to the docker group
 RUN apt-get update && \
     apt-get -y install apt-transport-https \
@@ -21,7 +23,6 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce && \
-   usermod -u $UID jenkins && \
    groupmod -g $GID docker && \
    usermod -aG docker jenkins
 
