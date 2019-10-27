@@ -1,13 +1,12 @@
 FROM jenkins/jenkins:lts
-ARG UID
-ARG GID
+ARG JENKUID
+ARG JENKGID
+ARG DOCKGID
 MAINTAINER 4oh4
 
 # Derived from https://github.com/getintodevops/jenkins-withdocker (miiro@getintodevops.com)
 
 USER root
-
-RUN usermod -u $UID jenkins
 
 # Install the latest Docker CE binaries and add user `jenkins` to the docker group
 RUN apt-get update && \
@@ -24,7 +23,9 @@ RUN apt-get update && \
    apt-get update && \
    apt-get -y install docker-ce && \
    groupmod -g $GID docker && \
-   usermod -aG docker jenkins
+   usermod -aG docker jenkins && \
+   usermod -u $JENKUID jenkins && \
+   groupmod -g $JENKGID jenkins
 
 # drop back to the regular jenkins user - good practice
 USER jenkins
